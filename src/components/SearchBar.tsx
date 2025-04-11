@@ -11,7 +11,7 @@ import {
   CommandList
 } from "@/components/ui/command";
 import { Search, X } from "lucide-react";
-import { getAllRecipes } from "@/utils/recipeData";
+import { Recipe, recipes } from "@/utils/recipeData";
 
 interface SearchBarProps {
   onClose: () => void;
@@ -19,12 +19,10 @@ interface SearchBarProps {
 
 export const SearchBar: React.FC<SearchBarProps> = ({ onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<Recipe[]>([]);
   const navigate = useNavigate();
   
   useEffect(() => {
-    const recipes = getAllRecipes();
-    
     if (searchQuery.trim() === "") {
       setSearchResults([]);
       return;

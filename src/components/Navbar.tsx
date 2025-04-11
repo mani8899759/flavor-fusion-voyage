@@ -1,10 +1,14 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChefHat } from "lucide-react";
+import { Menu, X, ChefHat, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Navbar = () => {
+interface NavbarProps {
+  onSearchClick?: () => void;
+}
+
+const Navbar = ({ onSearchClick }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -65,22 +69,45 @@ const Navbar = () => {
               {link.title}
             </Link>
           ))}
+          {onSearchClick && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={onSearchClick}
+              className="text-foreground hover:text-chili"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+          )}
         </nav>
 
         {/* Mobile menu button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
+        <div className="flex items-center space-x-2 md:hidden">
+          {onSearchClick && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={onSearchClick}
+              className="text-foreground hover:text-chili"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
           )}
-        </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
