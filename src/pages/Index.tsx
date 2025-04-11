@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import RecipeCard from "@/components/RecipeCard";
 import { getFeaturedRecipes, getRecipesByCuisine } from "@/utils/recipeData";
 
@@ -249,12 +249,3 @@ const Index = () => {
 };
 
 export default Index;
-
-// Badge component used in the featured recipe slider
-const Badge = ({ children, className = "" }) => {
-  return (
-    <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${className}`}>
-      {children}
-    </span>
-  );
-};
