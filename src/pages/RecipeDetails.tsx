@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { 
@@ -20,6 +19,7 @@ import {
 } from "@/utils/recipeData";
 import RecipeCard from "@/components/RecipeCard";
 import { useToast } from "@/components/ui/use-toast";
+import { ChefBot } from "@/components/ChefBot";
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -38,7 +38,6 @@ const RecipeDetails = () => {
       if (recipeData) {
         setRecipe(recipeData);
         setRelatedRecipes(getRelatedRecipes(recipeData));
-        // Scroll to top when recipe changes
         window.scrollTo(0, 0);
       }
     }
@@ -493,6 +492,9 @@ const RecipeDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Add ChefBot */}
+      <ChefBot />
     </div>
   );
 };
