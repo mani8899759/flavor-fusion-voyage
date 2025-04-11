@@ -73,12 +73,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onClose }) => {
                   onSelect={() => handleSelect(recipe.id)}
                   className="flex items-center gap-3 py-3"
                 >
-                  <div className="h-12 w-12 rounded overflow-hidden flex-shrink-0">
-                    <img 
-                      src={recipe.image} 
-                      alt={recipe.title} 
-                      className="h-full w-full object-cover"
-                    />
+                  <div className="h-12 w-12 rounded bg-gray-100 flex-shrink-0 flex items-center justify-center font-medium">
+                    {recipe.title.substring(0, 2).toUpperCase()}
                   </div>
                   <div className="flex flex-col">
                     <span className="font-medium">{recipe.title}</span>
