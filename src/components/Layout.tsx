@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { SearchBar } from "./SearchBar";
+import { ChefBot } from "./ChefBot";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {isSearchVisible && <SearchBar onClose={() => setIsSearchVisible(false)} />}
       <main className="flex-grow">{children}</main>
       <Footer />
+      <ChefBot />
     </div>
   );
 };

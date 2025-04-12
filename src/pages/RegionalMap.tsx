@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,7 @@ const RegionalMap = () => {
       description: "Rich, creamy curries, bread varieties, and meat dishes with aromatic spices like cardamom, cloves, and cinnamon.",
       highlights: ["Butter Chicken", "Chole Bhature", "Tandoori Chicken"],
       color: "from-chili to-chili/70",
-      position: { top: "15%", left: "30%" }
+      position: { top: "0", left: "50%" }
     },
     {
       id: "South",
@@ -25,7 +24,7 @@ const RegionalMap = () => {
       description: "Lighter, tangier flavors with coconut, curry leaves, tamarind, and rice-based specialties.",
       highlights: ["Masala Dosa", "Idli Sambar", "Hyderabadi Biryani"],
       color: "from-turmeric to-turmeric/70",
-      position: { bottom: "25%", left: "30%" }
+      position: { bottom: "0", left: "50%" }
     },
     {
       id: "East",
@@ -33,7 +32,7 @@ const RegionalMap = () => {
       description: "Fish-forward cuisine with mustard oil, panch phoron (five-spice blend), and sweet desserts.",
       highlights: ["Rasgulla", "Machher Jhol", "Litti Chokha"],
       color: "from-mint to-mint/70",
-      position: { top: "35%", right: "30%" }
+      position: { left: "0", top: "50%" }
     },
     {
       id: "West",
@@ -41,7 +40,7 @@ const RegionalMap = () => {
       description: "Varied flavors from coastal seafood to spicy street food with jaggery, kokum, and fenugreek.",
       highlights: ["Vada Pav", "Dhokla", "Goan Fish Curry"],
       color: "from-navy to-navy/70",
-      position: { bottom: "45%", right: "30%" }
+      position: { right: "0", top: "50%" }
     }
   ];
 
@@ -83,20 +82,29 @@ const RegionalMap = () => {
             regional specialties and recipes from across India.
           </p>
 
-          {/* Map Container */}
-          <div className="relative w-full max-w-3xl mx-auto aspect-[4/3] bg-white rounded-lg shadow-lg mb-12">
-            {/* India Map Outline (simplified SVG) */}
+          {/* Map Container - Square Shape */}
+          <div className="relative w-full max-w-3xl mx-auto aspect-square bg-white rounded-lg shadow-lg mb-12">
+            {/* India Map Outline (square SVG) */}
             <svg
               viewBox="0 0 400 400"
               className="absolute inset-0 w-full h-full p-4"
             >
-              <path
-                d="M200,50 C300,75 350,200 300,300 C250,350 150,350 100,300 C50,200 100,75 200,50 Z"
+              <rect
+                x="50"
+                y="50"
+                width="300"
+                height="300"
                 fill="#f3f4f6"
                 stroke="#ccc"
                 strokeWidth="2"
               />
             </svg>
+
+            {/* N, S, E, W Directions */}
+            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 font-bold text-xl text-navy">N</div>
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 font-bold text-xl text-navy">S</div>
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 font-bold text-xl text-navy">W</div>
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 font-bold text-xl text-navy">E</div>
 
             {/* Region Markers */}
             {regions.map((region) => (
@@ -283,6 +291,78 @@ const RegionalMap = () => {
                 staple in Indian cooking nationwide.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Share Recipe Section */}
+      <section className="py-16 bg-cream">
+        <div className="container-custom">
+          <h2 className="section-title text-center mb-8">
+            Share Your Recipe
+          </h2>
+          <p className="text-center text-lg mb-12 max-w-3xl mx-auto">
+            Have a delicious regional recipe you'd like to share? Fill out the form below!
+          </p>
+
+          <div className="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label htmlFor="recipeName" className="block font-medium">Recipe Name</label>
+                  <input
+                    id="recipeName"
+                    type="text"
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Enter recipe name"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label htmlFor="region" className="block font-medium">Region</label>
+                  <select id="region" className="w-full p-2 border rounded-md">
+                    <option value="">Select a region</option>
+                    <option value="North">North India</option>
+                    <option value="South">South India</option>
+                    <option value="East">East India</option>
+                    <option value="West">West India</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="ingredients" className="block font-medium">Ingredients</label>
+                <textarea
+                  id="ingredients"
+                  className="w-full p-2 border rounded-md min-h-[100px]"
+                  placeholder="Enter ingredients, one per line"
+                ></textarea>
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="directions" className="block font-medium">Directions</label>
+                <textarea
+                  id="directions"
+                  className="w-full p-2 border rounded-md min-h-[150px]"
+                  placeholder="Enter step-by-step instructions"
+                ></textarea>
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="nutrition" className="block font-medium">Nutrition Information</label>
+                <textarea
+                  id="nutrition"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Enter nutrition information (calories, protein, carbs, etc.)"
+                ></textarea>
+              </div>
+              
+              <div className="flex justify-center pt-4">
+                <Button className="bg-chili hover:bg-chili/90 px-8">
+                  Submit Recipe
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
       </section>

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 interface RecipeCardProps {
   id: string;
   title: string;
-  image: string; // We'll keep this in the props but won't use it
+  image: string;
   cuisine: string;
   category: string;
   prepTime: number;
@@ -54,12 +54,12 @@ const RecipeCard = ({
   return (
     <Link to={`/recipe/${id}`} className="block">
       <div className={`recipe-card group ${featured ? 'sm:col-span-2 md:row-span-2' : ''}`}>
-        <div className="relative bg-gray-100 border border-gray-200">
-          <div className={`${featured ? 'h-64' : 'h-48'} w-full flex items-center justify-center text-center p-4`}>
-            <h3 className="font-bold text-xl">
-              {title}
-            </h3>
-          </div>
+        <div className="relative overflow-hidden">
+          <img
+            src={image}
+            alt={title}
+            className={`recipe-card-image ${featured ? 'h-64' : 'h-48'} w-full object-cover transition-transform duration-300 group-hover:scale-105`}
+          />
           
           {/* Cuisine badge */}
           <Badge className="absolute top-2 left-2 bg-white/80 text-navy hover:bg-white/90">
@@ -75,6 +75,12 @@ const RecipeCard = ({
         </div>
         
         <div className="p-4">
+          <div className="flex justify-between items-start">
+            <h3 className="font-medium text-lg leading-tight mb-1 group-hover:text-chili transition-colors">
+              {title}
+            </h3>
+          </div>
+          
           <p className="text-muted-foreground text-sm mb-3">
             {category}
           </p>
