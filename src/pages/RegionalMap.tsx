@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import RecipeCard from "@/components/RecipeCard";
 import { getRecipesByRegion } from "@/utils/recipeData";
 import { ArrowRight, MapPin, Compass } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const RegionalMap = () => {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [recipes, setRecipes] = useState<any[]>([]);
+  const { toast } = useToast();
 
   const regions = [
     {
@@ -56,6 +60,35 @@ const RegionalMap = () => {
     }, 100);
   };
 
+  const handleRecipeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(e.currentTarget);
+    const recipeName = formData.get('recipeName') as string;
+    const region = formData.get('region') as string;
+    
+    // Form validation
+    if (!recipeName || !region) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all required fields",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Show success message
+    toast({
+      title: "Recipe Submitted!",
+      description: "Thank you for sharing your recipe with us!",
+      variant: "default"
+    });
+    
+    // Reset form
+    e.currentTarget.reset();
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header Section */}
@@ -71,128 +104,112 @@ const RegionalMap = () => {
         </div>
       </section>
 
-      {/* Interactive Map Section */}
+      {/* Interactive Map Section - REDESIGNED */}
       <section className="py-16 bg-cream">
         <div className="container-custom">
           <h2 className="section-title text-center mb-8">
             Explore India's Culinary Regions
           </h2>
           <p className="text-center text-lg mb-12 max-w-3xl mx-auto">
-            Click on a region or use the compass buttons below to discover
-            regional specialties and recipes from across India.
+            Click on a region to discover regional specialties and recipes from across India.
           </p>
 
-          {/* Map Container - As per the provided image design */}
-          <div className="relative w-full max-w-3xl mx-auto aspect-square bg-white rounded-lg shadow-lg mb-12">
-            {/* Map Background */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-3/4 h-3/4 rounded-full bg-pink-200 flex flex-col relative">
-                {/* North-South divider */}
-                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-600"></div>
-                
-                {/* East-West divider */}
-                <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-gray-600"></div>
-                
-                {/* Region Labels */}
-                <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-xl">
-                  North
-                </div>
-                <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 translate-y-1/2 font-bold text-xl">
-                  South
-                </div>
-                <div className="absolute left-1/4 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-xl">
-                  West
-                </div>
-                <div className="absolute right-1/4 top-1/2 transform translate-x-1/2 -translate-y-1/2 font-bold text-xl">
-                  East
-                </div>
+          {/* Smaller, More Attractive Map Container */}
+          <div className="relative w-full max-w-xl mx-auto aspect-square mb-12">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-orange-50 to-yellow-100 rounded-xl shadow-lg overflow-hidden">
+              {/* Decorative patterns */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-orange-200 opacity-30 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-200 opacity-30 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+              
+              {/* Subtle grid lines */}
+              <div className="absolute inset-0 grid grid-cols-4 grid-rows-4">
+                {Array.from({ length: 16 }).map((_, i) => (
+                  <div key={i} className="border border-gray-200 opacity-20"></div>
+                ))}
               </div>
             </div>
 
-            {/* Cardinal Direction Markers */}
-            <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+            {/* Main Map Container */}
+            <div className="absolute inset-8 flex items-center justify-center">
+              <div className="w-full h-full bg-white rounded-lg border-4 border-orange-300 shadow-inner flex items-center justify-center">
+                <div className="w-3/4 h-3/4 rounded-lg border-2 border-gray-300 relative">
+                  {/* Region Quadrants - Now with more style */}
+                  <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-1">
+                    {/* North Region */}
+                    <div 
+                      onClick={() => handleRegionSelect("North")} 
+                      className="bg-gradient-to-br from-orange-100 to-orange-200 hover:from-orange-200 hover:to-orange-300 transition-colors cursor-pointer flex items-center justify-center rounded-tl-md"
+                    >
+                      <div className="text-center p-2">
+                        <div className="font-bold text-orange-800">NORTH</div>
+                        <div className="text-xs mt-1 text-orange-700">Butter Chicken</div>
+                      </div>
+                    </div>
+                    
+                    {/* East Region */}
+                    <div 
+                      onClick={() => handleRegionSelect("East")} 
+                      className="bg-gradient-to-br from-purple-100 to-purple-200 hover:from-purple-200 hover:to-purple-300 transition-colors cursor-pointer flex items-center justify-center rounded-tr-md"
+                    >
+                      <div className="text-center p-2">
+                        <div className="font-bold text-purple-800">EAST</div>
+                        <div className="text-xs mt-1 text-purple-700">Rasgulla</div>
+                      </div>
+                    </div>
+                    
+                    {/* West Region */}
+                    <div 
+                      onClick={() => handleRegionSelect("West")} 
+                      className="bg-gradient-to-br from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-colors cursor-pointer flex items-center justify-center rounded-bl-md"
+                    >
+                      <div className="text-center p-2">
+                        <div className="font-bold text-blue-800">WEST</div>
+                        <div className="text-xs mt-1 text-blue-700">Vada Pav</div>
+                      </div>
+                    </div>
+                    
+                    {/* South Region */}
+                    <div 
+                      onClick={() => handleRegionSelect("South")} 
+                      className="bg-gradient-to-br from-green-100 to-green-200 hover:from-green-200 hover:to-green-300 transition-colors cursor-pointer flex items-center justify-center rounded-br-md"
+                    >
+                      <div className="text-center p-2">
+                        <div className="font-bold text-green-800">SOUTH</div>
+                        <div className="text-xs mt-1 text-green-700">Dosa</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Center Emblem */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center z-10 shadow-md">
+                    <span className="text-white text-xs font-bold">INDIA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Cardinal Direction Markers - More stylish */}
+            <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold shadow-md">
                 N
               </div>
             </div>
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold shadow-md">
                 S
               </div>
             </div>
-            <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold shadow-md">
                 W
               </div>
             </div>
-            <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold shadow-md">
                 E
               </div>
             </div>
-
-            {/* Information Markers */}
-            <div className="absolute top-24 left-1/2 transform -translate-x-1/2">
-              <button 
-                onClick={() => handleRegionSelect("North")}
-                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
-              >
-                ?
-              </button>
-            </div>
-            <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2">
-              <button 
-                onClick={() => handleRegionSelect("South")}
-                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
-              >
-                ?
-              </button>
-            </div>
-            <div className="absolute left-24 top-1/2 transform -translate-y-1/2">
-              <button 
-                onClick={() => handleRegionSelect("West")}
-                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
-              >
-                ?
-              </button>
-            </div>
-            <div className="absolute right-24 top-1/2 transform -translate-y-1/2">
-              <button 
-                onClick={() => handleRegionSelect("East")}
-                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
-              >
-                ?
-              </button>
-            </div>
-            
-            {/* Map Caption */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="3" y1="9" x2="21" y2="9"></line>
-                <line x1="9" y1="21" x2="9" y2="9"></line>
-              </svg>
-              Interactive political map of India
-            </div>
-          </div>
-
-          {/* Compass Navigation - Keep this for mobile users */}
-          <div className="flex justify-center gap-4 mb-12">
-            {regions.map((region) => (
-              <Button
-                key={region.id}
-                onClick={() => handleRegionSelect(region.id)}
-                className={`gap-2 ${
-                  selectedRegion === region.id
-                    ? "bg-chili hover:bg-chili/90"
-                    : "bg-white text-navy hover:bg-gray-100"
-                }`}
-                variant={selectedRegion === region.id ? "default" : "outline"}
-              >
-                <Compass className="h-4 w-4" />
-                {region.id}
-              </Button>
-            ))}
           </div>
 
           {/* Selected Region Info */}
@@ -232,7 +249,7 @@ const RegionalMap = () => {
         </div>
       </section>
 
-      {/* Recipe Results */}
+      {/* Recipe Results Section */}
       <section id="recipes-section" className="py-16">
         <div className="container-custom">
           {selectedRegion ? (
@@ -337,70 +354,147 @@ const RegionalMap = () => {
         </div>
       </section>
 
-      {/* Share Recipe Section */}
+      {/* Share Recipe Section - IMPROVED */}
       <section className="py-16 bg-cream">
         <div className="container-custom">
           <h2 className="section-title text-center mb-8">
-            Share Your Recipe
+            Share Your Regional Recipe
           </h2>
           <p className="text-center text-lg mb-12 max-w-3xl mx-auto">
-            Have a delicious regional recipe you'd like to share? Fill out the form below!
+            Have a delicious regional recipe you'd like to share with our community? Fill out the form below!
           </p>
 
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleRecipeSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="recipeName" className="block font-medium">Recipe Name</label>
-                  <input
+                  <label htmlFor="recipeName" className="block font-medium">Recipe Name *</label>
+                  <Input
                     id="recipeName"
+                    name="recipeName"
                     type="text"
-                    className="w-full p-2 border rounded-md"
                     placeholder="Enter recipe name"
+                    required
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <label htmlFor="region" className="block font-medium">Region</label>
-                  <select id="region" className="w-full p-2 border rounded-md">
+                  <label htmlFor="region" className="block font-medium">Region *</label>
+                  <select 
+                    id="region" 
+                    name="region"
+                    className="w-full p-2 border rounded-md"
+                    required
+                  >
                     <option value="">Select a region</option>
                     <option value="North">North India</option>
                     <option value="South">South India</option>
                     <option value="East">East India</option>
                     <option value="West">West India</option>
+                    <option value="Northeast">Northeast India</option>
+                    <option value="Central">Central India</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label htmlFor="prepTime" className="block font-medium">Preparation Time</label>
+                  <Input
+                    id="prepTime"
+                    name="prepTime"
+                    type="text"
+                    placeholder="e.g., 30 minutes"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label htmlFor="cookTime" className="block font-medium">Cooking Time</label>
+                  <Input
+                    id="cookTime"
+                    name="cookTime"
+                    type="text"
+                    placeholder="e.g., 45 minutes"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="ingredients" className="block font-medium">Ingredients *</label>
+                <Textarea
+                  id="ingredients"
+                  name="ingredients"
+                  className="min-h-[100px]"
+                  placeholder="Enter ingredients, one per line"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="directions" className="block font-medium">Directions *</label>
+                <Textarea
+                  id="directions"
+                  name="directions"
+                  className="min-h-[150px]"
+                  placeholder="Enter step-by-step instructions"
+                  required
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label htmlFor="spiceLevel" className="block font-medium">Spice Level</label>
+                  <select 
+                    id="spiceLevel" 
+                    name="spiceLevel"
+                    className="w-full p-2 border rounded-md"
+                  >
+                    <option value="">Select spice level</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Spicy">Spicy</option>
+                    <option value="Very Spicy">Very Spicy</option>
+                  </select>
+                </div>
+                
+                <div className="space-y-2">
+                  <label htmlFor="difficulty" className="block font-medium">Difficulty</label>
+                  <select 
+                    id="difficulty" 
+                    name="difficulty"
+                    className="w-full p-2 border rounded-md"
+                  >
+                    <option value="">Select difficulty</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
                   </select>
                 </div>
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="ingredients" className="block font-medium">Ingredients</label>
-                <textarea
-                  id="ingredients"
-                  className="w-full p-2 border rounded-md min-h-[100px]"
-                  placeholder="Enter ingredients, one per line"
-                ></textarea>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="directions" className="block font-medium">Directions</label>
-                <textarea
-                  id="directions"
-                  className="w-full p-2 border rounded-md min-h-[150px]"
-                  placeholder="Enter step-by-step instructions"
-                ></textarea>
-              </div>
-              
-              <div className="space-y-2">
                 <label htmlFor="nutrition" className="block font-medium">Nutrition Information</label>
-                <textarea
+                <Textarea
                   id="nutrition"
-                  className="w-full p-2 border rounded-md"
+                  name="nutrition"
                   placeholder="Enter nutrition information (calories, protein, carbs, etc.)"
-                ></textarea>
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="story" className="block font-medium">Recipe Story/History</label>
+                <Textarea
+                  id="story"
+                  name="story"
+                  placeholder="Share the story behind your recipe (optional)"
+                />
               </div>
               
               <div className="flex justify-center pt-4">
-                <Button className="bg-chili hover:bg-chili/90 px-8">
+                <Button 
+                  type="submit"
+                  className="bg-chili hover:bg-chili/90 px-8"
+                >
                   Submit Recipe
                 </Button>
               </div>
