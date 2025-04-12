@@ -11,6 +11,7 @@ import MoodBased from "./pages/MoodBased";
 import RegionalMap from "./pages/RegionalMap";
 import About from "./pages/About";
 import Feedback from "./pages/Feedback";
+import ShareRecipe from "./pages/ShareRecipe";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/map" element={<Layout><RegionalMap /></Layout>} />
           <Route path="/about" element={<Layout><About /></Layout>} />
           <Route path="/feedback" element={<Layout><Feedback /></Layout>} />
+          <Route path="/share-recipe" element={<Layout><ShareRecipe /></Layout>} />
           <Route path="*" element={<Layout><NotFound /></Layout>} />
         </Routes>
       </BrowserRouter>
