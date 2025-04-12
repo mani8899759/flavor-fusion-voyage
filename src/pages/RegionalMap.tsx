@@ -82,59 +82,101 @@ const RegionalMap = () => {
             regional specialties and recipes from across India.
           </p>
 
-          {/* Map Container - Square Shape */}
+          {/* Map Container - As per the provided image design */}
           <div className="relative w-full max-w-3xl mx-auto aspect-square bg-white rounded-lg shadow-lg mb-12">
-            {/* India Map Outline (square SVG) */}
-            <svg
-              viewBox="0 0 400 400"
-              className="absolute inset-0 w-full h-full p-4"
-            >
-              <rect
-                x="50"
-                y="50"
-                width="300"
-                height="300"
-                fill="#f3f4f6"
-                stroke="#ccc"
-                strokeWidth="2"
-              />
-            </svg>
-
-            {/* N, S, E, W Directions */}
-            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 font-bold text-xl text-navy">N</div>
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 font-bold text-xl text-navy">S</div>
-            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 font-bold text-xl text-navy">W</div>
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 font-bold text-xl text-navy">E</div>
-
-            {/* Region Markers */}
-            {regions.map((region) => (
-              <button
-                key={region.id}
-                onClick={() => handleRegionSelect(region.id)}
-                className={`absolute w-12 h-12 rounded-full bg-gradient-to-br ${
-                  region.color
-                } flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform ${
-                  selectedRegion === region.id ? "ring-4 ring-white" : ""
-                }`}
-                style={{
-                  ...region.position,
-                }}
-              >
-                <MapPin className="h-6 w-6 text-white" />
-              </button>
-            ))}
-
-            {/* Region Name Overlay */}
-            {selectedRegion && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-3xl font-bold text-navy opacity-20">
-                  {regions.find((r) => r.id === selectedRegion)?.name}
+            {/* Map Background */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-3/4 h-3/4 rounded-full bg-pink-200 flex flex-col relative">
+                {/* North-South divider */}
+                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-600"></div>
+                
+                {/* East-West divider */}
+                <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-gray-600"></div>
+                
+                {/* Region Labels */}
+                <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-xl">
+                  North
+                </div>
+                <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 translate-y-1/2 font-bold text-xl">
+                  South
+                </div>
+                <div className="absolute left-1/4 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-xl">
+                  West
+                </div>
+                <div className="absolute right-1/4 top-1/2 transform translate-x-1/2 -translate-y-1/2 font-bold text-xl">
+                  East
                 </div>
               </div>
-            )}
+            </div>
+
+            {/* Cardinal Direction Markers */}
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+                N
+              </div>
+            </div>
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+                S
+              </div>
+            </div>
+            <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+                W
+              </div>
+            </div>
+            <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold">
+                E
+              </div>
+            </div>
+
+            {/* Information Markers */}
+            <div className="absolute top-24 left-1/2 transform -translate-x-1/2">
+              <button 
+                onClick={() => handleRegionSelect("North")}
+                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
+              >
+                ?
+              </button>
+            </div>
+            <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2">
+              <button 
+                onClick={() => handleRegionSelect("South")}
+                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
+              >
+                ?
+              </button>
+            </div>
+            <div className="absolute left-24 top-1/2 transform -translate-y-1/2">
+              <button 
+                onClick={() => handleRegionSelect("West")}
+                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
+              >
+                ?
+              </button>
+            </div>
+            <div className="absolute right-24 top-1/2 transform -translate-y-1/2">
+              <button 
+                onClick={() => handleRegionSelect("East")}
+                className="w-8 h-8 rounded-full bg-orange-300 flex items-center justify-center border border-orange-400"
+              >
+                ?
+              </button>
+            </div>
+            
+            {/* Map Caption */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
+              Interactive political map of India
+            </div>
           </div>
 
-          {/* Compass Navigation */}
+          {/* Compass Navigation - Keep this for mobile users */}
           <div className="flex justify-center gap-4 mb-12">
             {regions.map((region) => (
               <Button
