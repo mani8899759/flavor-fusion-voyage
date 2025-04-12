@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Upload, ThumbsUp } from "lucide-react";
+import SmokeEffect from "@/components/SmokeEffect";
 
 const ShareRecipe = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -47,8 +48,10 @@ const ShareRecipe = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header Section */}
-      <section className="bg-gradient-to-r from-navy via-chili to-turmeric text-white py-16">
-        <div className="container-custom text-center">
+      <section className="relative bg-gradient-to-r from-navy via-chili to-turmeric text-white py-16">
+        <div className="absolute inset-0 bg-navy bg-opacity-50"></div>
+        <SmokeEffect className="z-10" intensity="light" color="#F1F1F1" />
+        <div className="container-custom text-center relative z-20">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Share Your Recipe
           </h1>

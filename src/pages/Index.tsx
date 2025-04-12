@@ -4,6 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import RecipeCard from "@/components/RecipeCard";
+import SmokeEffect from "@/components/SmokeEffect";
 import { getFeaturedRecipes, getRecipesByCuisine } from "@/utils/recipeData";
 
 const Index = () => {
@@ -12,7 +13,6 @@ const Index = () => {
   const [indianSpecials, setIndianSpecials] = useState(getRecipesByCuisine("Indian").slice(0, 4));
   const [americanSpecials, setAmericanSpecials] = useState(getRecipesByCuisine("American").slice(0, 4));
 
-  // Auto-rotate carousel
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % featuredRecipes.length);
@@ -20,7 +20,6 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [featuredRecipes.length]);
 
-  // Handle manual navigation
   const handlePrevSlide = () => {
     setActiveSlide((prev) => (prev === 0 ? featuredRecipes.length - 1 : prev - 1));
   };
@@ -31,10 +30,10 @@ const Index = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-navy via-chili to-turmeric overflow-hidden">
         <div className="absolute inset-0 bg-navy bg-opacity-50"></div>
-        <div className="relative container-custom min-h-[90vh] flex flex-col items-center justify-center text-white text-center px-4 py-20">
+        <SmokeEffect className="z-10" intensity="medium" color="#F1F1F1" />
+        <div className="relative container-custom min-h-[90vh] flex flex-col items-center justify-center text-white text-center px-4 py-20 z-20">
           <div className="max-w-3xl mx-auto animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
               Savor Every Bite – From India to America
@@ -63,7 +62,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Recipes Carousel */}
       <section className="py-16 bg-cream">
         <div className="container-custom">
           <div className="mb-10">
@@ -161,7 +159,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Indian Cuisine Section */}
       <section className="py-16 bg-white">
         <div className="container-custom">
           <div className="flex justify-between items-end mb-10">
@@ -194,7 +191,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* American Cuisine Section */}
       <section className="py-16 bg-cream">
         <div className="container-custom">
           <div className="flex justify-between items-end mb-10">
@@ -227,7 +223,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-navy text-white">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Cooking?</h2>
