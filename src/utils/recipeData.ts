@@ -667,3 +667,85 @@ export const recipes: Recipe[] = [
       "For green chutney: Blend cilantro, mint leaves, green chilies, lemon juice, and salt into a smooth paste.",
       "For garlic chutney: Dry roast garlic and dried coconut separately. Grind together with red chili powder and salt.",
       "Heat oil for deep frying. Dip each potato patty in the batter, coating it evenly.",
+      "Deep fry until golden brown and crisp on both sides. Drain on paper towels.",
+      "Slice pav buns horizontally, but not all the way through.",
+      "Apply green chutney on one side and garlic chutney on the other.",
+      "Place the fried vada between the bun and serve hot."
+    ],
+    nutritionFacts: {
+      calories: 350,
+      protein: 8,
+      carbs: 45,
+      fat: 15,
+      fiber: 5
+    },
+    mood: ["Lazy Day", "Midnight Cravings"],
+    vegetarian: true
+  }
+];
+
+// Utility functions
+
+// Get all unique cuisine types
+export const getCuisineTypes = (): string[] => {
+  const cuisines = recipes.map(recipe => recipe.cuisine);
+  return [...new Set(cuisines)];
+};
+
+// Get all categories for a specific cuisine
+export const getCuisineCategories = (): { [key: string]: string[] } => {
+  const categories: { [key: string]: string[] } = {};
+  
+  getCuisineTypes().forEach(cuisine => {
+    const cuisineRecipes = recipes.filter(recipe => recipe.cuisine === cuisine);
+    const uniqueCategories = [...new Set(cuisineRecipes.map(recipe => recipe.subcategory))];
+    categories[cuisine] = uniqueCategories;
+  });
+  
+  return categories;
+};
+
+// Get recipes by cuisine and optional subcategory
+export const getRecipesByCuisine = (cuisine: string, subcategory: string = ""): Recipe[] => {
+  if (subcategory) {
+    return recipes.filter(recipe => 
+      recipe.cuisine === cuisine && 
+      recipe.subcategory === subcategory
+    );
+  }
+  return recipes.filter(recipe => recipe.cuisine === cuisine);
+};
+
+// Get featured recipes
+export const getFeaturedRecipes = (): Recipe[] => {
+  return recipes.filter(recipe => recipe.featured);
+};
+
+// Get recipes by mood
+export const getRecipesByMood = (mood: string): Recipe[] => {
+  return recipes.filter(recipe => recipe.mood.includes(mood as any));
+};
+
+// Get recipe by ID
+export const getRecipeById = (id: string): Recipe | undefined => {
+  return recipes.find(recipe => recipe.id === id);
+};
+
+// Get recipes by region (for Indian cuisine)
+export const getRecipesByRegion = (region: string): Recipe[] => {
+  return recipes.filter(recipe => 
+    recipe.region === region && 
+    recipe.cuisine === "Indian"
+  );
+};
+
+// Search recipes by title or ingredients
+export const searchRecipes = (query: string): Recipe[] => {
+  const lowerCaseQuery = query.toLowerCase();
+  return recipes.filter(recipe => 
+    recipe.title.toLowerCase().includes(lowerCaseQuery) || 
+    recipe.ingredients.some(ingredient => 
+      ingredient.toLowerCase().includes(lowerCaseQuery)
+    )
+  );
+};
