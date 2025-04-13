@@ -229,6 +229,7 @@ export const recipes: Recipe[] = [
       fiber: 11
     },
     mood: ["Festival Vibes", "Lazy Day"],
+    featured: true,
     vegetarian: true
   },
   {
@@ -719,6 +720,17 @@ export const getRecipesByCuisine = (cuisine: string, subcategory: string = ""): 
 // Get featured recipes
 export const getFeaturedRecipes = (): Recipe[] => {
   return recipes.filter(recipe => recipe.featured);
+};
+
+// Get related recipes based on cuisine and category
+export const getRelatedRecipes = (recipe: Recipe): Recipe[] => {
+  // Find recipes with the same cuisine and category, but not the same recipe
+  return recipes
+    .filter(r => 
+      r.id !== recipe.id && 
+      (r.cuisine === recipe.cuisine || r.category === recipe.category)
+    )
+    .slice(0, 3); // Return at most 3 related recipes
 };
 
 // Get recipes by mood
