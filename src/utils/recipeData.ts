@@ -1,4 +1,3 @@
-
 // Recipe data types
 export interface Recipe {
   id: string;
@@ -32,6 +31,7 @@ export interface Recipe {
   };
   mood: ("Lazy Day" | "Impress Your Date" | "Festival Vibes" | "Midnight Cravings")[];
   featured?: boolean;
+  vegetarian?: boolean;
 }
 
 // Sample recipe data
@@ -42,7 +42,7 @@ export const recipes: Recipe[] = [
     description: "Creamy, tomato-based curry with tender chicken pieces - a North Indian delicacy loved worldwide.",
     cuisine: "Indian",
     category: "Main Course",
-    subcategory: "North",
+    subcategory: "Non-Veg",
     region: "North",
     image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 30,
@@ -94,7 +94,8 @@ export const recipes: Recipe[] = [
       fiber: 2
     },
     mood: ["Impress Your Date", "Festival Vibes"],
-    featured: true
+    featured: true,
+    vegetarian: false
   },
   {
     id: "masala-dosa",
@@ -102,7 +103,7 @@ export const recipes: Recipe[] = [
     description: "Crispy fermented rice and lentil crepe filled with spiced potato filling - a South Indian breakfast favorite.",
     cuisine: "Indian",
     category: "Breakfast",
-    subcategory: "South",
+    subcategory: "Veg",
     region: "South",
     image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 60,
@@ -157,7 +158,8 @@ export const recipes: Recipe[] = [
       fiber: 4
     },
     mood: ["Lazy Day", "Festival Vibes"],
-    featured: true
+    featured: true,
+    vegetarian: true
   },
   {
     id: "chole-bhature",
@@ -165,7 +167,7 @@ export const recipes: Recipe[] = [
     description: "Spicy chickpea curry served with deep-fried, puffy bread - a popular North Indian street food.",
     cuisine: "Indian",
     category: "Street Food",
-    subcategory: "North",
+    subcategory: "Veg",
     region: "North",
     image: "https://images.unsplash.com/photo-1626132827561-97d3222c5848?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 40,
@@ -226,7 +228,8 @@ export const recipes: Recipe[] = [
       fat: 22,
       fiber: 11
     },
-    mood: ["Festival Vibes", "Lazy Day"]
+    mood: ["Festival Vibes", "Lazy Day"],
+    vegetarian: true
   },
   {
     id: "classic-burger",
@@ -234,7 +237,7 @@ export const recipes: Recipe[] = [
     description: "Juicy beef patty with melted cheese, fresh vegetables, and special sauce in a toasted bun - the quintessential American comfort food.",
     cuisine: "American",
     category: "Fast Food",
-    subcategory: "Fast Food",
+    subcategory: "Non-Veg",
     image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1599&q=80",
     prepTime: 20,
     cookTime: 15,
@@ -285,7 +288,8 @@ export const recipes: Recipe[] = [
       fiber: 3
     },
     mood: ["Lazy Day", "Midnight Cravings"],
-    featured: true
+    featured: true,
+    vegetarian: false
   },
   {
     id: "bbq-pulled-pork",
@@ -293,7 +297,7 @@ export const recipes: Recipe[] = [
     description: "Slow-cooked, tender pork shoulder shredded and tossed in smoky barbecue sauce, served on a soft bun with coleslaw - an American BBQ classic.",
     cuisine: "American",
     category: "BBQ",
-    subcategory: "BBQ",
+    subcategory: "Non-Veg",
     image: "https://images.unsplash.com/photo-1623238913973-21e45574d358?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 30,
     cookTime: 480,
@@ -350,7 +354,8 @@ export const recipes: Recipe[] = [
       fat: 28,
       fiber: 2
     },
-    mood: ["Lazy Day", "Festival Vibes"]
+    mood: ["Lazy Day", "Festival Vibes"],
+    vegetarian: false
   },
   {
     id: "apple-pie",
@@ -358,7 +363,7 @@ export const recipes: Recipe[] = [
     description: "Flaky, buttery crust filled with cinnamon-spiced apples - the iconic American dessert that represents comfort and tradition.",
     cuisine: "American",
     category: "Desserts",
-    subcategory: "Desserts",
+    subcategory: "Veg",
     image: "https://images.unsplash.com/photo-1621743478914-cc8a86d7e7b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 45,
     cookTime: 50,
@@ -414,7 +419,8 @@ export const recipes: Recipe[] = [
       fat: 19,
       fiber: 3
     },
-    mood: ["Festival Vibes", "Impress Your Date"]
+    mood: ["Festival Vibes", "Impress Your Date"],
+    vegetarian: true
   },
   {
     id: "tandoori-chicken",
@@ -422,7 +428,7 @@ export const recipes: Recipe[] = [
     description: "Chicken marinated in yogurt and spices, then roasted to perfection - a North Indian classic that's both flavorful and aromatic.",
     cuisine: "Indian",
     category: "Main Course",
-    subcategory: "North",
+    subcategory: "Non-Veg",
     region: "North",
     image: "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 20,
@@ -472,7 +478,8 @@ export const recipes: Recipe[] = [
       fat: 18,
       fiber: 1
     },
-    mood: ["Lazy Day", "Impress Your Date"]
+    mood: ["Lazy Day", "Impress Your Date"],
+    vegetarian: false
   },
   {
     id: "masala-loaded-fries",
@@ -480,7 +487,7 @@ export const recipes: Recipe[] = [
     description: "Crispy french fries topped with spicy Indian masala, chutneys, and cheese - a delicious fusion of American and Indian flavors.",
     cuisine: "Fusion",
     category: "Street Food",
-    subcategory: "Fusion",
+    subcategory: "Veg",
     image: "https://images.unsplash.com/photo-1585109649139-366815a0d713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
     prepTime: 15,
     cookTime: 30,
@@ -537,7 +544,8 @@ export const recipes: Recipe[] = [
       fiber: 4
     },
     mood: ["Lazy Day", "Midnight Cravings"],
-    featured: true
+    featured: true,
+    vegetarian: true
   },
   {
     id: "rasgulla",
@@ -545,9 +553,9 @@ export const recipes: Recipe[] = [
     description: "Soft, spongy cheese balls soaked in light sugar syrup - a popular sweet from Eastern India.",
     cuisine: "Indian",
     category: "Desserts",
-    subcategory: "East",
+    subcategory: "Veg",
     region: "East",
-    image: "https://images.unsplash.com/photo-1598715559054-0dd1931e326b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+    image: "https://images.unsplash.com/photo-1598715559054-0dd1931e326b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format=crop&w=1472&q=80",
     prepTime: 30,
     cookTime: 30,
     totalTime: 60,
@@ -591,7 +599,8 @@ export const recipes: Recipe[] = [
       fat: 1,
       fiber: 0
     },
-    mood: ["Festival Vibes", "Impress Your Date"]
+    mood: ["Festival Vibes", "Impress Your Date"],
+    vegetarian: true
   },
   {
     id: "mumbai-vada-pav",
@@ -599,7 +608,7 @@ export const recipes: Recipe[] = [
     description: "Spicy potato fritter sandwiched in a bread roll with chutneys - Mumbai's most beloved street food.",
     cuisine: "Indian",
     category: "Street Food",
-    subcategory: "West",
+    subcategory: "Veg",
     region: "West",
     image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
     prepTime: 30,
@@ -658,159 +667,3 @@ export const recipes: Recipe[] = [
       "For green chutney: Blend cilantro, mint leaves, green chilies, lemon juice, and salt into a smooth paste.",
       "For garlic chutney: Dry roast garlic and dried coconut separately. Grind together with red chili powder and salt.",
       "Heat oil for deep frying. Dip each potato patty in the batter, coating it evenly.",
-      "Deep fry until golden brown and crisp. Drain on paper towels.",
-      "To assemble: Slice pav rolls horizontally, but not all the way through.",
-      "Spread green chutney on one side and garlic chutney on the other.",
-      "Place a hot vada in between and serve immediately.",
-      "Optionally, you can sprinkle some dry garlic chutney on top of the vada for extra flavor."
-    ],
-    nutritionFacts: {
-      calories: 350,
-      protein: 8,
-      carbs: 55,
-      fat: 12,
-      fiber: 5
-    },
-    mood: ["Lazy Day", "Midnight Cravings"]
-  },
-  {
-    id: "thanksgiving-turkey",
-    title: "Traditional Thanksgiving Turkey",
-    description: "Perfectly roasted turkey with herbs and spices, the centerpiece of an American Thanksgiving dinner.",
-    cuisine: "American",
-    category: "Holiday Dishes",
-    subcategory: "Holiday Dishes",
-    image: "https://images.unsplash.com/photo-1574672281194-db2df791583f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    prepTime: 60,
-    cookTime: 240,
-    totalTime: 300,
-    servings: 12,
-    difficulty: "Hard",
-    taste: {
-      spicy: 2,
-      sweet: 1,
-      savory: 5,
-      tangy: 1
-    },
-    spiceLevel: 2,
-    ingredients: [
-      "1 (12-14 lb) whole turkey, thawed if frozen",
-      "1 cup unsalted butter, softened",
-      "3 tbsp fresh rosemary, chopped",
-      "3 tbsp fresh thyme, chopped",
-      "3 tbsp fresh sage, chopped",
-      "6 cloves garlic, minced",
-      "Zest of 1 lemon",
-      "2 tbsp kosher salt",
-      "1 tbsp black pepper",
-      "1 onion, quartered",
-      "1 lemon, quartered",
-      "1 apple, quartered",
-      "4 sprigs fresh rosemary",
-      "4 sprigs fresh thyme",
-      "2 cups chicken broth"
-    ],
-    instructions: [
-      "Remove turkey from refrigerator and let stand at room temperature for 1 hour before roasting.",
-      "Preheat oven to 425°F (220°C) and place rack in lower third of oven.",
-      "Remove giblets and neck from turkey cavity. Rinse turkey inside and out, then pat dry with paper towels.",
-      "In a bowl, mix softened butter with chopped rosemary, thyme, sage, minced garlic, lemon zest, salt, and pepper.",
-      "Carefully loosen the skin from the turkey breast without tearing it. Spread half of the herb butter under the skin directly on the meat.",
-      "Rub the remaining herb butter all over the outside of the turkey.",
-      "Stuff the turkey cavity with quartered onion, lemon, apple, and fresh herb sprigs.",
-      "Tie the legs together with kitchen twine and tuck the wing tips under the body.",
-      "Place turkey on a rack in a large roasting pan and pour chicken broth into the bottom of the pan.",
-      "Roast turkey at 425°F (220°C) for 30 minutes, then reduce the temperature to 350°F (175°C).",
-      "Continue roasting for about 2-3 more hours, or until a meat thermometer inserted into the thickest part of the thigh registers 165°F (74°C).",
-      "Baste the turkey with pan juices every 30 minutes. If the turkey browns too quickly, cover loosely with aluminum foil.",
-      "Remove from oven and let rest for at least 30 minutes before carving.",
-      "Reserve pan drippings for gravy if desired.",
-      "Carve and serve with traditional Thanksgiving sides like mashed potatoes, cranberry sauce, green bean casserole, and stuffing."
-    ],
-    nutritionFacts: {
-      calories: 420,
-      protein: 54,
-      carbs: 2,
-      fat: 22,
-      fiber: 0
-    },
-    mood: ["Festival Vibes", "Impress Your Date"]
-  }
-];
-
-// Get all available categories and subcategories
-export const getCuisineCategories = () => {
-  const categories = {
-    Indian: new Set<string>(),
-    American: new Set<string>(),
-    Fusion: new Set<string>()
-  };
-
-  recipes.forEach((recipe) => {
-    if (recipe.cuisine in categories) {
-      categories[recipe.cuisine as keyof typeof categories].add(recipe.subcategory);
-    }
-  });
-
-  return {
-    Indian: Array.from(categories.Indian),
-    American: Array.from(categories.American),
-    Fusion: Array.from(categories.Fusion)
-  };
-};
-
-// Get all regions
-export const getRegions = () => {
-  const regions = new Set<string>();
-  
-  recipes.forEach((recipe) => {
-    if (recipe.region) {
-      regions.add(recipe.region);
-    }
-  });
-
-  return Array.from(regions);
-};
-
-// Get recipes by mood
-export const getRecipesByMood = (mood: string) => {
-  return recipes.filter((recipe) => 
-    recipe.mood.some((m) => m.toLowerCase().includes(mood.toLowerCase()))
-  );
-};
-
-// Get recipes by region
-export const getRecipesByRegion = (region: string) => {
-  return recipes.filter((recipe) => recipe.region === region);
-};
-
-// Get recipes by cuisine and optional subcategory
-export const getRecipesByCuisine = (cuisine: string, subcategory?: string) => {
-  return recipes.filter((recipe) => {
-    if (subcategory) {
-      return recipe.cuisine === cuisine && recipe.subcategory === subcategory;
-    }
-    return recipe.cuisine === cuisine;
-  });
-};
-
-// Get featured recipes
-export const getFeaturedRecipes = () => {
-  return recipes.filter((recipe) => recipe.featured);
-};
-
-// Get recipe by ID
-export const getRecipeById = (id: string) => {
-  return recipes.find((recipe) => recipe.id === id);
-};
-
-// Get related recipes (same cuisine or category)
-export const getRelatedRecipes = (currentRecipe: Recipe, limit = 3) => {
-  return recipes
-    .filter((recipe) => 
-      recipe.id !== currentRecipe.id && 
-      (recipe.cuisine === currentRecipe.cuisine || 
-       recipe.category === currentRecipe.category)
-    )
-    .slice(0, limit);
-};

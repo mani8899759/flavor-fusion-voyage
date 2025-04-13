@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
@@ -44,10 +45,10 @@ const Index = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" className="bg-chili hover:bg-chili/90">
-                <Link to="/categories/indian">Explore Indian Dishes</Link>
+                <Link to="/categories/Indian">Explore Indian Dishes</Link>
               </Button>
               <Button asChild size="lg" className="bg-turmeric hover:bg-turmeric/90 text-navy">
-                <Link to="/categories/american">Explore American Dishes</Link>
+                <Link to="/categories/American">Explore American Dishes</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                 <Link to="/mood">Explore by Mood</Link>
@@ -168,7 +169,7 @@ const Index = () => {
                 Rich, flavorful, and aromatic dishes from the land of spices
               </p>
             </div>
-            <Link to="/categories/indian" className="text-chili hover:text-chili/90 flex items-center gap-1 font-medium">
+            <Link to="/categories/Indian" className="text-chili hover:text-chili/90 flex items-center gap-1 font-medium">
               See All <ArrowRight size={16} />
             </Link>
           </div>
@@ -200,7 +201,7 @@ const Index = () => {
                 Hearty, comforting, and iconic dishes from across the United States
               </p>
             </div>
-            <Link to="/categories/american" className="text-chili hover:text-chili/90 flex items-center gap-1 font-medium">
+            <Link to="/categories/American" className="text-chili hover:text-chili/90 flex items-center gap-1 font-medium">
               See All <ArrowRight size={16} />
             </Link>
           </div>

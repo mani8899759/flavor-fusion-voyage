@@ -5,7 +5,7 @@ import RecipeCard from "@/components/RecipeCard";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getCuisineCategories, getRecipesByCuisine } from "@/utils/recipeData";
-import { ChefHat, Utensils } from "lucide-react";
+import { ChefHat, Utensils, Leaf, Beef } from "lucide-react";
 
 const Categories = () => {
   const { cuisine, subcategory } = useParams();
@@ -81,7 +81,21 @@ const Categories = () => {
               >
                 All
               </Button>
-              {categories.Indian.map((subcat) => (
+              <Button 
+                variant={selectedSubcategory === "Veg" ? "default" : "outline"} 
+                onClick={() => handleSubcategoryChange("Veg")}
+                className={selectedSubcategory === "Veg" ? "bg-chili hover:bg-chili/90" : ""}
+              >
+                <Leaf size={16} className="mr-1" /> Vegetarian
+              </Button>
+              <Button 
+                variant={selectedSubcategory === "Non-Veg" ? "default" : "outline"} 
+                onClick={() => handleSubcategoryChange("Non-Veg")}
+                className={selectedSubcategory === "Non-Veg" ? "bg-chili hover:bg-chili/90" : ""}
+              >
+                <Beef size={16} className="mr-1" /> Non-Vegetarian
+              </Button>
+              {categories.Indian.filter(cat => cat !== "Veg" && cat !== "Non-Veg").map((subcat) => (
                 <Button 
                   key={subcat}
                   variant={selectedSubcategory === subcat ? "default" : "outline"}
@@ -103,7 +117,21 @@ const Categories = () => {
               >
                 All
               </Button>
-              {categories.American.map((subcat) => (
+              <Button 
+                variant={selectedSubcategory === "Veg" ? "default" : "outline"} 
+                onClick={() => handleSubcategoryChange("Veg")}
+                className={selectedSubcategory === "Veg" ? "bg-turmeric hover:bg-turmeric/90 text-navy" : ""}
+              >
+                <Leaf size={16} className="mr-1" /> Vegetarian
+              </Button>
+              <Button 
+                variant={selectedSubcategory === "Non-Veg" ? "default" : "outline"} 
+                onClick={() => handleSubcategoryChange("Non-Veg")}
+                className={selectedSubcategory === "Non-Veg" ? "bg-turmeric hover:bg-turmeric/90 text-navy" : ""}
+              >
+                <Beef size={16} className="mr-1" /> Non-Vegetarian
+              </Button>
+              {categories.American.filter(cat => cat !== "Veg" && cat !== "Non-Veg").map((subcat) => (
                 <Button 
                   key={subcat}
                   variant={selectedSubcategory === subcat ? "default" : "outline"}
